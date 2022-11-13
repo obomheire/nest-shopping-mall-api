@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ProductDocument } from './product.schema';
 
+@UseGuards(JwtGuard)
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -30,7 +31,6 @@ export class ProductController {
     return this.productService.findAll();
   }
 
-  @UseGuards(JwtGuard)
   @Get(':id')
   findProduct(@Param('id') id: string): Promise<ProductDocument> {
     return this.productService.find(id);
